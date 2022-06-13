@@ -1,6 +1,6 @@
 CREATE TABLE genres (
     genre_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    genre_name varchar(255) NOT NULL,
+    genre_name varchar(255) NOT NULL
 );
 
 CREATE TABLE authors (
@@ -15,8 +15,8 @@ CREATE TABLE books (
     book_name varchar(255) NOT NULL,
     book_author_id int(11) NULL,
     book_genre_id int(11) NOT NULL,
-    FOREIGN KEY books(book_author_id) REFERENCES authors (author_id)
-    FOREIGN KEY books(book_genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE
+    FOREIGN KEY (book_author_id) REFERENCES authors (author_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE
 );
 
 CREATE TABLE members(
@@ -32,15 +32,15 @@ CREATE TABLE groups(
     group_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     group_name varchar(255) NOT NULL,
     group_administator int(11) NOT NULL,
-    FOREIGN KEY members(group_administator) REFERENCES members(member_id) ON DELETE CASCADE
+    FOREIGN KEY (group_administator) REFERENCES members(member_id) ON DELETE CASCADE
 );
 
 CREATE TABLE groups_members(
     group_member_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     group_member_member_id int(11) NOT NULL,
     group_member_group_id int(11) NOT NULL,
-    FOREIGN KEY groups_members(group_member_member_id) REFERENCES members(member_id) ON DELETE CASCADE,
-    FOREIGN KEY groups_members(group_member_group_id) REFERENCES groups(group_id) ON DELETE CASCADE
+    FOREIGN KEY (group_member_member_id) REFERENCES members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY (group_member_group_id) REFERENCES groups(group_id) ON DELETE CASCADE
 
 );
 
@@ -48,5 +48,5 @@ CREATE TABLE meeting(
     meeting_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     meeting_time date NOT NULL,
     group_id int(11) NOT NULL, 
-    FOREIGN KEY meeting(group_id) REFERENCES groups(group_id) ON DELETE CASCADE
+    FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE
 );
