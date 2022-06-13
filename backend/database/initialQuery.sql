@@ -19,34 +19,11 @@ CREATE TABLE books (
     FOREIGN KEY (book_genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE
 );
 
-CREATE TABLE members(
+CREATE TABLE admins(
     member_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     member_username varchar(255) NOT NULL,
     member_name varchar(255) NOT NULL,
     member_surname varchar(255) NOT NULL,
     member_date_of_birth varchar(255) NOT NULL,
     member_password varchar(255) NOT NULL
-);
-
-CREATE TABLE groups(
-    group_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    group_name varchar(255) NOT NULL,
-    group_administator int(11) NOT NULL,
-    FOREIGN KEY (group_administator) REFERENCES members(member_id) ON DELETE CASCADE
-);
-
-CREATE TABLE groups_members(
-    group_member_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    group_member_member_id int(11) NOT NULL,
-    group_member_group_id int(11) NOT NULL,
-    FOREIGN KEY (group_member_member_id) REFERENCES members(member_id) ON DELETE CASCADE,
-    FOREIGN KEY (group_member_group_id) REFERENCES groups(group_id) ON DELETE CASCADE
-
-);
-
-CREATE TABLE meeting(
-    meeting_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    meeting_time date NOT NULL,
-    group_id int(11) NOT NULL, 
-    FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE
 );
