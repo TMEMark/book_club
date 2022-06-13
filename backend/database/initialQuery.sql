@@ -31,18 +31,22 @@ CREATE TABLE members(
 CREATE TABLE groups(
     group_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     group_name varchar(255) NOT NULL,
-    group_administator int(11) NOT NULL
+    group_administator int(11) NOT NULL,
+    FOREIGN KEY members(group_administator) REFERENCES members(member_id) ON DELETE CASCADE
 );
 
 CREATE TABLE groups_members(
     group_member_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     group_member_member_id int(11) NOT NULL,
     group_member_group_id int(11) NOT NULL,
+    FOREIGN KEY groups_members(group_member_member_id) REFERENCES members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY groups_members(group_member_group_id) REFERENCES groups(group_id) ON DELETE CASCADE
 
 );
 
 CREATE TABLE meeting(
     meeting_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    meeting_time date NOT NULL
-    group_id int(11) NOT NULL
+    meeting_time date NOT NULL,
+    group_id int(11) NOT NULL, 
+    FOREIGN KEY meeting(group_id) REFERENCES groups(group_id) ON DELETE CASCADE
 );
